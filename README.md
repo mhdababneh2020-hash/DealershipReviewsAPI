@@ -41,5 +41,8 @@ A RESTful API for managing car dealerships and customer reviews, built with ASP.
 ## Live Demo
 https://dealershipreviewsapi.onrender.com/swagger
 
+## Documentation
+https://mhdababneh2020-hash.github.io/DealershipReviewsAPI
+
 ## License
 MIT
