@@ -38,5 +38,8 @@ A RESTful API for managing car dealerships and customer reviews, built with ASP.
 2. Run: dotnet run
 3. Open: http://localhost:5083/swagger
 
+## Live Demo
+https://dealershipreviewsapi.onrender.com/swagger
+
 ## License
 MIT
