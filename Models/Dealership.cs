@@ -8,5 +8,9 @@ namespace DealershipReviewsAPI.Models
         public string State { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
         public string ZipCode { get; set; } = string.Empty;
+        public List<Review> Reviews { get; set; } = new();
+        public double AverageRating => Reviews.Count > 0 
+            ? Reviews.Average(r => r.Rating) 
+            : 0;
     }
 }

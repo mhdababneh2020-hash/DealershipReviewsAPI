@@ -9,5 +9,6 @@ namespace DealershipReviewsAPI.Data
 
         public DbSet<Dealership> Dealerships { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

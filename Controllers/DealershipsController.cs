@@ -16,11 +16,21 @@ namespace DealershipReviewsAPI.Controllers
             _context = context;
         }
 
-        // GET: api/dealerships
+        // GET: api/dealerships?city=Amman&state=Jordan
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Dealership>>> GetDealerships()
+        public async Task<ActionResult<IEnumerable<Dealership>>> GetDealerships(
+            [FromQuery] string? city,
+            [FromQuery] string? state)
         {
-            return await _context.Dealerships.ToListAsync();
+            var query = _context.Dealerships.AsQueryable();
+
+            if (!string.IsNullOrEmpty(city))
+                query = query.Where(d => d.City.Contains(city));
+
+            if (!string.IsNullOrEmpty(state))
+                query = query.Where(d => d.State.Contains(state));
+
+            return await query.ToListAsync();
         }
 
         // GET: api/dealerships/5
