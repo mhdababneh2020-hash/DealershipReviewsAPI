@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dealership Reviews API</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+      }
+      header {
+        background: #1e293b;
+        padding: 40px 20px;
+        text-align: center;
+        border-bottom: 2px solid #3b82f6;
+      }
+      header h1 {
+        font-size: 2.5rem;
+        color: #3b82f6;
+        margin-bottom: 10px;
+      }
+      header p {
+        color: #94a3b8;
+        font-size: 1.1rem;
+      }
+      .container {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+      .card {
+        background: #1e293b;
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 20px;
+        border: 1px solid #334155;
+      }
+      .card h2 {
+        color: #3b82f6;
+        margin-bottom: 20px;
+        font-size: 1.4rem;
+      }
+      .endpoint {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        background: #0f172a;
+      }
+      .method {
+        padding: 4px 12px;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 0.85rem;
+        min-width: 70px;
+        text-align: center;
+      }
+      .get {
+        background: #1d4ed8;
+        color: white;
+      }
+      .post {
+        background: #15803d;
+        color: white;
+      }
+      .put {
+        background: #b45309;
+        color: white;
+      }
+      .delete {
+        background: #b91c1c;
+        color: white;
+      }
+      .path {
+        color: #e2e8f0;
+        font-family: monospace;
+      }
+      .desc {
+        color: #94a3b8;
+        font-size: 0.9rem;
+        margin-left: auto;
+      }
+      .btn {
+        display: inline-block;
+        background: #3b82f6;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+      .btn:hover {
+        background: #2563eb;
+      }
+      .tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 15px;
+      }
+      .tag {
+        background: #334155;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        color: #94a3b8;
+      }
+      footer {
+        text-align: center;
+        padding: 30px;
+        color: #475569;
+        border-top: 1px solid #1e293b;
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>🚗 Dealership Reviews API</h1>
+      <p>
+        A RESTful API built with ASP.NET Core, Entity Framework & JWT
+        Authentication
+      </p>
+      <br />
+      <a href="https://dealershipreviewsapi.onrender.com/swagger" class="btn"
+        >View Live API Docs →</a
+      >
+    </header>
+
+    <div class="container">
+      <div class="card">
+        <h2>🔐 Authentication</h2>
+        <div class="endpoint">
+          <span class="method post">POST</span>
+          <span class="path">/api/Auth/register</span>
+          <span class="desc">Register new user</span>
+        </div>
+        <div class="endpoint">
+          <span class="method post">POST</span>
+          <span class="path">/api/Auth/login</span>
+          <span class="desc">Login & get JWT token</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>🏢 Dealerships</h2>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="path">/api/Dealerships</span>
+          <span class="desc">Get all (filter by city/state)</span>
+        </div>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="path">/api/Dealerships/{id}</span>
+          <span class="desc">Get dealership by ID</span>
+        </div>
+        <div class="endpoint">
+          <span class="method post">POST</span>
+          <span class="path">/api/Dealerships</span>
+          <span class="desc">Create new dealership</span>
+        </div>
+        <div class="endpoint">
+          <span class="method put">PUT</span>
+          <span class="path">/api/Dealerships/{id}</span>
+          <span class="desc">Update dealership</span>
+        </div>
+        <div class="endpoint">
+          <span class="method delete">DELETE</span>
+          <span class="path">/api/Dealerships/{id}</span>
+          <span class="desc">Delete dealership</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>⭐ Reviews</h2>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="path">/api/Reviews</span>
+          <span class="desc">Get all reviews</span>
+        </div>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="path">/api/Reviews/dealer/{id}</span>
+          <span class="desc">Get reviews by dealership</span>
+        </div>
+        <div class="endpoint">
+          <span class="method post">POST</span>
+          <span class="path">/api/Reviews</span>
+          <span class="desc">Submit a review</span>
+        </div>
+        <div class="endpoint">
+          <span class="method delete">DELETE</span>
+          <span class="path">/api/Reviews/{id}</span>
+          <span class="desc">Delete review</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>🛠️ Tech Stack</h2>
+        <div class="tech">
+          <span class="tag">C#</span>
+          <span class="tag">ASP.NET Core 9</span>
+          <span class="tag">Entity Framework Core</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">JWT Authentication</span>
+          <span class="tag">Swagger UI</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Render</span>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        Built by <strong>Mohammad Ababneh</strong> |
+        <a
+          href="https://github.com/mhdababneh2020-hash/DealershipReviewsAPI"
+          style="color: #3b82f6"
+          >GitHub</a
+        >
+      </p>
+    </footer>
+  </body>
+</html>
