@@ -1,6 +1,81 @@
-@DealershipReviewsAPI_HostAddress = http://localhost:5083
+@host = http://localhost:5083
+@token = PASTE_TOKEN_FROM_LOGIN_HERE
 
-GET {{DealershipReviewsAPI_HostAddress}}/weatherforecast/
-Accept: application/json
+### Health check
+GET {{host}}/health
 
-###
+### Register a new user
+POST {{host}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "ahmad",
+  "password": "secret123",
+  "email": "ahmad@example.com"
+}
+
+### Login (copy the token from the response)
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "ahmad",
+  "password": "secret123"
+}
+
+### Get all dealerships (public)
+GET {{host}}/api/dealerships
+
+### Search dealerships by city
+GET {{host}}/api/dealerships?city=Amman
+
+### Get a dealership by id (public)
+GET {{host}}/api/dealerships/1
+
+### Create a dealership (requires token)
+POST {{host}}/api/dealerships
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Amman Motors",
+  "city": "Amman",
+  "state": "Jordan",
+  "address": "Airport Road",
+  "zipCode": "11118"
+}
+
+### Update a dealership (requires token)
+PUT {{host}}/api/dealerships/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Amman Motors - Main Branch",
+  "city": "Amman",
+  "state": "Jordan",
+  "address": "Airport Road",
+  "zipCode": "11118"
+}
+
+### Get all reviews (public)
+GET {{host}}/api/reviews
+
+### Get reviews for a dealership (public)
+GET {{host}}/api/reviews/dealer/1
+
+### Create a review (requires token)
+POST {{host}}/api/reviews
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "dealershipId": 1,
+  "customerName": "Ahmad",
+  "reviewText": "Great service and friendly staff",
+  "rating": 5
+}
+
+### Delete a review (requires token)
+DELETE {{host}}/api/reviews/1
+Authorization: Bearer {{token}}

@@ -1,7 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DealershipReviewsAPI.Data;
-using DealershipReviewsAPI.Models;
+using DealershipReviewsAPI.Dtos;
+using DealershipReviewsAPI.Services;
 
 namespace DealershipReviewsAPI.Controllers
 {
@@ -9,47 +9,46 @@ namespace DealershipReviewsAPI.Controllers
     [Route("api/[controller]")]
     public class ReviewsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IReviewService _reviewService;
 
-        public ReviewsController(AppDbContext context)
+        public ReviewsController(IReviewService reviewService)
         {
-            _context = context;
+            _reviewService = reviewService;
         }
 
-        // GET: api/reviews
+        // GET: api/reviews — public: anyone can read reviews
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
+        public async Task<ActionResult<IEnumerable<ReviewDto>>> GetReviews()
         {
-            return await _context.Reviews.Include(r => r.Dealership).ToListAsync();
+            return await _reviewService.GetAllAsync();
         }
 
-        // GET: api/reviews/dealer/5
+        // GET: api/reviews/dealer/5 — public
         [HttpGet("dealer/{dealershipId}")]
-        public async Task<ActionResult<IEnumerable<Review>>> GetReviewsByDealer(int dealershipId)
+        public async Task<ActionResult<IEnumerable<ReviewDto>>> GetReviewsByDealer(int dealershipId)
         {
-            return await _context.Reviews
-                .Where(r => r.DealershipId == dealershipId)
-                .Include(r => r.Dealership)
-                .ToListAsync();
+            return await _reviewService.GetByDealershipAsync(dealershipId);
         }
 
-        // POST: api/reviews
+        // POST: api/reviews — requires a valid JWT
+        [Authorize]
         [HttpPost]
-        public async Task<ActionResult<Review>> CreateReview(Review review)
+        public async Task<ActionResult<ReviewDto>> CreateReview(CreateReviewDto dto)
         {
-            _context.Reviews.Add(review);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetReviews), new { id = review.Id }, review);
+            var created = await _reviewService.CreateAsync(dto);
+            if (created == null)
+                return BadRequest($"Dealership with id {dto.DealershipId} does not exist");
+
+            return CreatedAtAction(nameof(GetReviews), new { id = created.Id }, created);
         }
 
-        // DELETE: api/reviews/5
+        // DELETE: api/reviews/5 — requires a valid JWT
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteReview(int id)
         {
-            var review = await _context.Reviews.FindAsync(id);
-            if (review == null) return NotFound();
-            _context.Reviews.Remove(review);
-            await _context.SaveChangesAsync();
+            var deleted = await _reviewService.DeleteAsync(id);
+            if (!deleted) return NotFound();
             return NoContent();
         }
     }

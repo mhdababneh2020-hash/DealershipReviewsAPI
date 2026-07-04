@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\DealershipReviewsAPI.props" />
-</Project>
