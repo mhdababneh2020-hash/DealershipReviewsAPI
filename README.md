@@ -1,5 +1,7 @@
 # Dealership Reviews API
 
+[![CI](https://github.com/mhdababneh2020-hash/DealershipReviewsAPI/actions/workflows/ci.yml/badge.svg)](https://github.com/mhdababneh2020-hash/DealershipReviewsAPI/actions/workflows/ci.yml)
+
 A RESTful API for managing car dealerships and customer reviews, built with ASP.NET Core 9 using a layered architecture (Controllers → Services → EF Core).
 
 ## Tech Stack
