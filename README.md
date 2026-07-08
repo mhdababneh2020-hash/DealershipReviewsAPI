@@ -104,6 +104,8 @@ dotnet test DealershipReviewsAPI.Tests
 https://dealershipreviewsapi.onrender.com/swagger
 ```
 
+Note: this is a free-tier hosted demo and may take up to a minute to wake up on first load.
+
 Note: the live demo runs an earlier SQLite build; the current version targets SQL Server.
 
 ## Documentation
