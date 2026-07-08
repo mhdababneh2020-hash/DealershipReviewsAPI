@@ -33,7 +33,16 @@ namespace DealershipReviewsAPI.Services
             };
 
             _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                // Two simultaneous registrations can pass the check above;
+                // the unique index rejects the second one here
+                return "Username already exists";
+            }
             return null;
         }
 
